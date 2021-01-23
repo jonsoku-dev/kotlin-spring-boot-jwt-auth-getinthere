@@ -2,7 +2,6 @@ package com.tamastudy.tama.config
 
 import com.tamastudy.tama.config.jwt.JwtAuthenticationFilter
 import com.tamastudy.tama.config.jwt.JwtAuthorizationFilter
-import com.tamastudy.tama.filter.MyFilter3
 import com.tamastudy.tama.repository.UserRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -11,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
-import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.web.filter.CorsFilter
 
 @Configuration

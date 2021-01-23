@@ -30,7 +30,7 @@ class JwtAuthenticationFilter(authenticationManager: AuthenticationManager) : Us
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication? {
         try {
             return ObjectMapper().readValue(request.inputStream, User::class.java).let { user ->
-                UsernamePasswordAuthenticationToken(user.username, user.password).let { token ->
+                UsernamePasswordAuthenticationToken(user.email, user.password).let { token ->
                     authenticationManager.authenticate(token)
                 }
             }

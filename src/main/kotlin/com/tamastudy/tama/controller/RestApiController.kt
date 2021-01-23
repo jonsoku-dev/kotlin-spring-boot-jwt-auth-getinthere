@@ -23,7 +23,6 @@ class RestApiController(
 
     @PostMapping("join")
     fun join(@RequestBody user: User): String? {
-        println(user)
         user.password = bCryptPasswordEncoder.encode(user.password)
         user.roles = "ROLE_USER"
         userRepository.save(user)

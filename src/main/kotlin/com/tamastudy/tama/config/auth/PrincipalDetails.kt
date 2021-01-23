@@ -18,7 +18,7 @@ class PrincipalDetails(
 
     override fun getPassword() = user.password
 
-    override fun getUsername() = user.username
+    override fun getUsername() = user.email
 
     override fun isAccountNonExpired() = true
 

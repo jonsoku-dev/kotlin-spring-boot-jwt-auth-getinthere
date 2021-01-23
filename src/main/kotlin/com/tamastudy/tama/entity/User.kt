@@ -10,6 +10,7 @@ data class User(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long,
         var username: String,
+        var email: String,
         var password: String,
         var roles: String = ""// ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
 ) {

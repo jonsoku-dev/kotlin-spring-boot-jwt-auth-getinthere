@@ -11,9 +11,9 @@ import java.lang.Exception
 class PrincipalDetailsService(
         private val userRepository: UserRepository
 ) : UserDetailsService {
-    override fun loadUserByUsername(username: String): UserDetails {
+    override fun loadUserByUsername(email: String): UserDetails {
         println("PrincipalDetailsService 의 loadUserByUsername()")
-        userRepository.findByUsername(username)?.let { userEntity ->
+        userRepository.findByEmail(email)?.let { userEntity ->
             return PrincipalDetails(userEntity)
         } ?: run {
             throw Exception()
