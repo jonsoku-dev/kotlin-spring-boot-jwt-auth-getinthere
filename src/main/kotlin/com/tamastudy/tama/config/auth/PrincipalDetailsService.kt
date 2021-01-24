@@ -1,10 +1,10 @@
 package com.tamastudy.tama.config.auth
 
-import com.tamastudy.tama.repository.UserRepository
+import com.tamastudy.tama.repository.user.UserRepository
+import org.springframework.security.authentication.InternalAuthenticationServiceException
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
-import java.lang.Exception
 
 // http://localhost:8080/login 요청이 올때 동작을 한다 !
 @Service
@@ -16,7 +16,7 @@ class PrincipalDetailsService(
         userRepository.findByEmail(email)?.let { userEntity ->
             return PrincipalDetails(userEntity)
         } ?: run {
-            throw Exception()
+            throw InternalAuthenticationServiceException("email 로 유저를 찾을 수 없습니다.")
         }
     }
 }

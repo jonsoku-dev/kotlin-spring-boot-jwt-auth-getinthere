@@ -2,7 +2,7 @@ package com.tamastudy.tama.config
 
 import com.tamastudy.tama.config.jwt.JwtAuthenticationFilter
 import com.tamastudy.tama.config.jwt.JwtAuthorizationFilter
-import com.tamastudy.tama.repository.UserRepository
+import com.tamastudy.tama.repository.user.UserRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -35,12 +35,17 @@ class SecurityConfig(
                 .addFilter(JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .authorizeRequests()
-                .antMatchers("/api/v1/user/**")
-                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/v1/manager/**")
-                .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/v1/admin/**")
-                .access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll()
+                .antMatchers("/api/v1/hello").permitAll()
+                .antMatchers("/api/v1/authenticate").permitAll()
+                .antMatchers("/api/v1/join").permitAll()
+                .anyRequest().authenticated()
+//                .authorizeRequests()
+//                .antMatchers("/api/v1/user/**")
+//                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+//                .antMatchers("/api/v1/manager/**")
+//                .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+//                .antMatchers("/api/v1/admin/**")
+//                .access("hasRole('ROLE_ADMIN')")
+//                .anyRequest().permitAll()
     }
 }

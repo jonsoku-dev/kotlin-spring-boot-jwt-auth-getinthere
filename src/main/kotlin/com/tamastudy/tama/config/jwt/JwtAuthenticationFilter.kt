@@ -49,7 +49,7 @@ class JwtAuthenticationFilter(authenticationManager: AuthenticationManager) : Us
         JWT.create()
                 .withSubject("tamastudy token")
                 .withExpiresAt(Date(System.currentTimeMillis() + (600000 * 10)))
-                .withClaim("username", principalDetails.username)
+                .withClaim("id", principalDetails.getId())
                 .sign(Algorithm.HMAC512("tamastudy"))
                 .let { token ->
                     response.addHeader("Authorization", "Bearer $token")

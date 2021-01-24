@@ -16,6 +16,8 @@ class PrincipalDetails(
         return authorities
     }
 
+    fun getId() = user.id
+
     override fun getPassword() = user.password
 
     override fun getUsername() = user.email

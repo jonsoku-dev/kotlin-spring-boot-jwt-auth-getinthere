@@ -1,24 +1,27 @@
 package com.tamastudy.tama.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.tamastudy.tama.dto.user.UserDto
+import javax.persistence.*
 
 @Entity
 data class User(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long,
-        var username: String,
-        var email: String,
-        var password: String,
-        var roles: String = ""// ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
+        @Column(name = "user_id")
+        var id: Long? = 0,
+        var username: String? = null,
+        var email: String? = null,
+        var password: String? = null,
+        var roles: String? = null, // ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
+
+        @OneToMany(mappedBy = "user")
+        var boards: List<Board>? = null
+
 ) {
     fun getRoleList(): MutableList<String> {
         val list = mutableListOf<String>()
-        if (this.roles.isNotEmpty()) {
-            this.roles.split(",").let { roleList ->
-                roleList.forEach { role ->
+        if (this.roles?.isNotEmpty() == true) {
+            this.roles?.split(",").let { roleList ->
+                roleList?.forEach { role ->
                     list.add(role)
                 }
                 return list
@@ -26,4 +29,13 @@ data class User(
         }
         return list
     }
+}
+
+fun User?.toUserDto(): UserDto {
+    return UserDto(
+            id = this?.id,
+            username = this?.username,
+            email = this?.email,
+            roles = this?.roles
+    )
 }
