@@ -1,10 +1,7 @@
 package com.tamastudy.tama.service.board
 
 import com.tamastudy.tama.dto.board.*
-import com.tamastudy.tama.entity.Board
-import com.tamastudy.tama.entity.BoardCategory
-import com.tamastudy.tama.entity.toBoardCategoryDto
-import com.tamastudy.tama.entity.toBoardDto
+import com.tamastudy.tama.entity.*
 import com.tamastudy.tama.repository.board.BoardCategoryRepository
 import com.tamastudy.tama.repository.board.BoardRepository
 import com.tamastudy.tama.repository.user.UserRepository
@@ -28,18 +25,33 @@ class BoardServiceImpl(
     }
 
     override fun findById(id: Long): BoardDto {
-        TODO("Not yet implemented")
+        return findBoard(id).let {
+            BoardDto().convertBoardDto(it)
+        }
     }
 
     override fun createBoard(board: Board): BoardDto {
-        TODO("Not yet implemented")
+        return BoardDto().convertBoardDto(repository.save(board))
     }
 
     override fun updateBoard(board: Board): BoardDto {
-        TODO("Not yet implemented")
+        val newBoard = board.id?.let {
+            findBoard(it).let {
+                repository.save(board)
+            }
+        } ?: throw NotFoundException("${board.id} 에 해당하는 게시물을 찾을 수 없습니다.")
+
+        return BoardDto().convertBoardDto(newBoard)
     }
 
     override fun deleteById(id: Long) {
-        TODO("Not yet implemented")
+        findBoard(id).let {
+            repository.delete(it)
+        }
     }
+
+    private fun findBoard(id: Long): Board {
+        return repository.findByIdOrNull(id) ?: throw NotFoundException("$id 에 해당하는 게시물을 찾을 수 없습니다.")
+    }
+
 }
