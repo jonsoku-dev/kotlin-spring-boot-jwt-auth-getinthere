@@ -31,11 +31,11 @@ data class User(
     }
 }
 
-fun User?.toUserDto(): UserDto {
-    return UserDto(
-            id = this?.id,
-            username = this?.username,
-            email = this?.email,
-            roles = this?.roles
-    )
+fun User?.convertUser(userDto: UserDto): User {
+    return User().apply {
+        this.id = userDto.id
+        this.username = userDto.username
+        this.email = userDto.email
+        this.roles = userDto.roles
+    }
 }

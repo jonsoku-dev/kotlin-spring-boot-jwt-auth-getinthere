@@ -20,11 +20,12 @@ data class Board(
         var category: BoardCategory? = null
 )
 
-fun Board?.toBoardDto(): BoardDto {
-    return BoardDto(
-            id = this?.id,
-            title = this?.title,
-            description = this?.description,
-            categoryId = this?.category?.id
-    )
+fun Board?.convertBoard(boardDto: BoardDto, category: BoardCategory, user: User): Board {
+    return Board().apply {
+        this.id = boardDto.id
+        this.title = boardDto.title
+        this.description = boardDto.description
+        this.category = category
+        this.user = user
+    }
 }

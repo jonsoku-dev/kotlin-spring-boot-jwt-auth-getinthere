@@ -20,3 +20,12 @@ fun BoardDto?.toBoard(user: User, category: BoardCategory): Board {
             category = category
     )
 }
+
+fun BoardDto?.convertBoardDto(board: Board): BoardDto {
+    return BoardDto().apply {
+        this.id = board.id
+        this.title = board.title
+        this.description = board.description
+        this.categoryId = board.category?.id
+    }
+}
