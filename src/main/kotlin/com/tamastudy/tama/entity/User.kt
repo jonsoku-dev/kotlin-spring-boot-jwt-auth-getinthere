@@ -13,8 +13,8 @@ data class User(
         var password: String? = null,
         var roles: String? = null, // ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
 
-        @OneToMany(mappedBy = "user")
-        var boards: List<Board>? = null
+//        @OneToMany(mappedBy = "user")
+//        var boards: List<Board>? = null
 
 ) {
     fun getRoleList(): MutableList<String> {

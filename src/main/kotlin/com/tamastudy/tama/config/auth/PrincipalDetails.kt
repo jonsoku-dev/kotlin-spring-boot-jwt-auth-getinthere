@@ -16,6 +16,8 @@ class PrincipalDetails(
         return authorities
     }
 
+    fun getUserEntity() = user
+
     fun getId() = user.id
 
     override fun getPassword() = user.password

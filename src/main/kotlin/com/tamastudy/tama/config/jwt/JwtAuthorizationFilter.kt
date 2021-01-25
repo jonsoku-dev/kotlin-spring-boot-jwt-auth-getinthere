@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.tamastudy.tama.config.auth.PrincipalDetails
 import com.tamastudy.tama.repository.user.UserRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -35,13 +36,16 @@ class JwtAuthorizationFilter(
         // JWT 토큰을 검증해서 정상적인 사용자인지 확인
         val jwtToken = request.getHeader("Authorization").replace("Bearer ", "")
         JWT.require(Algorithm.HMAC512("tamastudy")).build().verify(jwtToken).getClaim("id").asLong().let { id ->
-            userRepository.findById(id).let { userEntity ->
-                val principalDetails = PrincipalDetails(userEntity.get())
+            userRepository.findByIdOrNull(id)?.let { it ->
+                val principalDetails = PrincipalDetails(it)
                 // Jwt 토큰 서명을 통해서 서명이 정상이면 Authentication 객체를 만들어 준다.
                 val authentication = UsernamePasswordAuthenticationToken(principalDetails, "", principalDetails.authorities)
                 // 강제로 시큐리티의 세션에 접근하여 Authentication 객체를 저장한다.
                 SecurityContextHolder.getContext().authentication = authentication
                 chain.doFilter(request, response)
+            } ?: run {
+                chain.doFilter(request, response)
+                return
             }
         }
     }
