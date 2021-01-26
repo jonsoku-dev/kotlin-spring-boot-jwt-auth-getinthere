@@ -37,6 +37,17 @@ repositories {
     mavenCentral()
 }
 
+noArg {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -54,6 +65,12 @@ dependencies {
     kapt("com.querydsl:querydsl-apt::jpa")
     implementation("com.auth0:java-jwt:3.12.0")
     implementation("com.google.code.gson:gson:2.8.6")
+    // map-struct
+    implementation("org.mapstruct:mapstruct:1.3.0.Final")
+    // map-struct Annotation Processor
+    kapt("org.mapstruct:mapstruct-processor:1.3.0.Final")
+    kaptTest("org.mapstruct:mapstruct-processor:1.3.0.Final")
+    // end of map-struct
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 }

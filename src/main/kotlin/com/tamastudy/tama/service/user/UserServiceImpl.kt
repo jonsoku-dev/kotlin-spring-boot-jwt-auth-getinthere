@@ -21,6 +21,8 @@ class UserServiceImpl(
             this.password = bCryptPasswordEncoder.encode(user.password)
             this.roles = "ROLE_USER"
         }.let {
+            println("HERE=======HERE=======HERE=======HERE=======HERE=======")
+            println(it)
             userRepository.save(it)
         }
     }

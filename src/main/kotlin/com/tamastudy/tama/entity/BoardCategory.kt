@@ -9,9 +9,6 @@ data class BoardCategory(
         @Column(name = "category_id")
         var id: Long? = null,
         var name: String? = null,
-
-        @OneToMany(mappedBy = "category")
-        var boards: List<Board>? = null
 )
 
 fun BoardCategory?.convertBoardCategory(boardCategoryDto: BoardCategoryDto): BoardCategory {
