@@ -29,6 +29,10 @@ class BoardCategoryServiceImpl(
         return BoardCategoryDto().convertBoardCategoryDto(newCategory)
     }
 
+    override fun findById(id: Long): BoardCategoryDto {
+        return BoardCategoryDto().convertBoardCategoryDto(findCategory(id))
+    }
+
     private fun findCategory(id: Long): BoardCategory {
         return repository.findByIdOrNull(id) ?: throw NotFoundException("$id 에 해당하는 카테고리를 찾을 수 없습니다.")
     }

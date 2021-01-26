@@ -1,7 +1,6 @@
 package com.tamastudy.tama.entity
 
 import com.tamastudy.tama.dto.board.BoardCategoryDto
-import com.tamastudy.tama.dto.user.UserDto
 import javax.persistence.*
 
 @Entity
@@ -15,9 +14,9 @@ data class BoardCategory(
         var boards: List<Board>? = null
 )
 
-fun BoardCategory?.toBoardCategoryDto(): BoardCategoryDto {
-    return BoardCategoryDto(
-            id = this?.id,
-            name = this?.name
-    )
+fun BoardCategory?.convertBoardCategory(boardCategoryDto: BoardCategoryDto): BoardCategory {
+    return BoardCategory().apply {
+        this.id = boardCategoryDto.id
+        this.name = boardCategoryDto.name
+    }
 }

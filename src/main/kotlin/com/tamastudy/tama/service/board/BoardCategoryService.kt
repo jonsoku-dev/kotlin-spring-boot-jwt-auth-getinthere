@@ -6,4 +6,5 @@ import com.tamastudy.tama.entity.BoardCategory
 interface BoardCategoryService {
     fun createCategory(category: BoardCategory): BoardCategoryDto
     fun updateCategory(category: BoardCategory): BoardCategoryDto
+    fun findById(id: Long) : BoardCategoryDto
 }

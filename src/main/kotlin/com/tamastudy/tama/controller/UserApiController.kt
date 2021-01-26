@@ -1,6 +1,7 @@
 package com.tamastudy.tama.controller
 
 import com.tamastudy.tama.dto.user.CreateUserRequest
+import com.tamastudy.tama.entity.User
 import com.tamastudy.tama.service.user.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -17,7 +18,12 @@ class UserApiController(
 ) {
     @PostMapping(value = ["/join"])
     fun join(@Valid @RequestBody createUserRequest: CreateUserRequest): ResponseEntity<String> {
-        userService.save(createUserRequest)
+        val newUser = User().apply {
+            this.email = createUserRequest.email
+            this.username = createUserRequest.username
+            this.password = createUserRequest.password
+        }
+        userService.createUser(newUser)
         return ResponseEntity<String>("ok", HttpStatus.CREATED)
     }
 }
